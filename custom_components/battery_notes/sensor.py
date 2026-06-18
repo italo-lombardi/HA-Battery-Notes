@@ -179,7 +179,7 @@ async def async_setup_entry(
             entity_category=EntityCategory.DIAGNOSTIC,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=f"{PERCENTAGE}/day",
-            suggested_display_precision=2,
+            suggested_display_precision=1,
             entity_type="sensor",
         )
 
@@ -210,23 +210,27 @@ async def async_setup_entry(
                 last_replaced_sensor_entity_description,
                 f"{subentry.unique_id}{last_replaced_sensor_entity_description.unique_id_suffix}",
             ),
-            BatteryNotesDrainRateSensor(
-                hass,
-                config_entry,
-                subentry,
-                drain_rate_sensor_entity_description,
-                coordinator,
-                f"{subentry.unique_id}{drain_rate_sensor_entity_description.unique_id_suffix}",
-            ),
-            BatteryNotesEstimatedReplacementSensor(
-                hass,
-                config_entry,
-                subentry,
-                estimated_replacement_sensor_entity_description,
-                coordinator,
-                f"{subentry.unique_id}{estimated_replacement_sensor_entity_description.unique_id_suffix}",
-            ),
         ]
+
+        if coordinator.battery_percentage_template is not None or coordinator.wrapped_battery is not None or coordinator.source_entity_id is not None:
+            entities += [
+                BatteryNotesDrainRateSensor(
+                    hass,
+                    config_entry,
+                    subentry,
+                    drain_rate_sensor_entity_description,
+                    coordinator,
+                    f"{subentry.unique_id}{drain_rate_sensor_entity_description.unique_id_suffix}",
+                ),
+                BatteryNotesEstimatedReplacementSensor(
+                    hass,
+                    config_entry,
+                    subentry,
+                    estimated_replacement_sensor_entity_description,
+                    coordinator,
+                    f"{subentry.unique_id}{estimated_replacement_sensor_entity_description.unique_id_suffix}",
+                ),
+            ]
 
         if coordinator.battery_percentage_template is not None:
             entities.append(
@@ -507,10 +511,12 @@ class BatteryNotesBatteryPlusBaseSensor(BatteryNotesEntity, RestoreSensor):
             ATTR_BATTERY_LOW_THRESHOLD: self.coordinator.battery_low_threshold,
             ATTR_BATTERY_LAST_REPORTED: self.coordinator.last_reported,
             ATTR_BATTERY_LAST_REPORTED_LEVEL: self.coordinator.last_reported_level,
-            ATTR_BATTERY_LAST_REPLACED_LEVEL: self.coordinator.last_replaced_level,
-            ATTR_BATTERY_DRAIN_RATE: self.coordinator.battery_drain_rate,
-            ATTR_BATTERY_ESTIMATED_REPLACEMENT_DATE: self.coordinator.battery_estimated_replacement_date,
         }
+
+        if self.coordinator.battery_percentage_template is not None or self.coordinator.wrapped_battery is not None or self.coordinator.source_entity_id is not None:
+            attrs[ATTR_BATTERY_LAST_REPLACED_LEVEL] = self.coordinator.last_replaced_level
+            attrs[ATTR_BATTERY_DRAIN_RATE] = self.coordinator.battery_drain_rate
+            attrs[ATTR_BATTERY_ESTIMATED_REPLACEMENT_DATE] = self.coordinator.battery_estimated_replacement_date
 
         if self.enable_replaced:
             attrs[ATTR_BATTERY_LAST_REPLACED] = self.coordinator.last_replaced
@@ -1035,7 +1041,7 @@ class BatteryNotesBatteryPlusTemplateSensor(BatteryNotesBatteryPlusBaseSensor):
         return self._attr_native_value
 
 
-class BatteryNotesDrainRateSensor(BatteryNotesEntity, SensorEntity):
+class BatteryNotesDrainRateSensor(BatteryNotesEntity, RestoreSensor):
     """Represents a battery drain rate diagnostic sensor."""
 
     _attr_should_poll = False
@@ -1055,16 +1061,60 @@ class BatteryNotesDrainRateSensor(BatteryNotesEntity, SensorEntity):
             hass=hass, entity_description=entity_description, coordinator=coordinator
         )
         self._attr_unique_id = unique_id
+        self._attr_native_value: float | None = None
+
+    async def async_added_to_hass(self) -> None:
+        """Handle added to Hass."""
+        await super().async_added_to_hass()
+        state = await self.async_get_last_sensor_data()
+        if state and self.coordinator.battery_drain_rate is None:
+            try:
+                self._attr_native_value = float(state.native_value) if state.native_value is not None else None
+            except (ValueError, TypeError):
+                self._attr_native_value = None
+
+        battery_entity_id = (
+            self.coordinator.wrapped_battery.entity_id if self.coordinator.wrapped_battery
+            else self.coordinator.source_entity_id
+        )
+        if battery_entity_id:
+            @callback
+            def _drain_battery_state_listener(event):  # noqa: ARG001
+                new_state = self.hass.states.get(battery_entity_id)
+                if (
+                    new_state and validate_is_float(new_state.state)
+                    and not self.coordinator.wrapped_battery
+                    and not self.coordinator.battery_percentage_template
+                ):
+                    self.coordinator.current_battery_level = new_state.state
+                self._attr_native_value = self.coordinator.battery_drain_rate
+                self.async_write_ha_state()
+
+            self.async_on_remove(
+                async_track_state_change_event(
+                    self.hass,
+                    [battery_entity_id],
+                    _drain_battery_state_listener,
+                )
+            )
+            self.async_on_remove(
+                async_track_state_report_event(
+                    self.hass,
+                    [battery_entity_id],
+                    _drain_battery_state_listener,
+                )
+            )
 
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
+        self._attr_native_value = self.coordinator.battery_drain_rate
         self.async_write_ha_state()
 
     @property
     def native_value(self) -> float | None:
         """Return the drain rate in % per day."""
-        return self.coordinator.battery_drain_rate
+        return self._attr_native_value
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -1074,7 +1124,7 @@ class BatteryNotesDrainRateSensor(BatteryNotesEntity, SensorEntity):
         }
 
 
-class BatteryNotesEstimatedReplacementSensor(BatteryNotesEntity, SensorEntity):
+class BatteryNotesEstimatedReplacementSensor(BatteryNotesEntity, RestoreSensor):
     """Represents a battery estimated replacement date diagnostic sensor."""
 
     _attr_should_poll = False
@@ -1094,13 +1144,58 @@ class BatteryNotesEstimatedReplacementSensor(BatteryNotesEntity, SensorEntity):
             hass=hass, entity_description=entity_description, coordinator=coordinator
         )
         self._attr_unique_id = unique_id
+        self._attr_native_value: datetime | None = None
+
+    async def async_added_to_hass(self) -> None:
+        """Handle added to Hass."""
+        await super().async_added_to_hass()
+        state = await self.async_get_last_sensor_data()
+        if state and self.coordinator.battery_estimated_replacement_date is None:
+            if state.native_value is not None:
+                try:
+                    self._attr_native_value = dt_util.parse_datetime(str(state.native_value))
+                except (ValueError, TypeError):
+                    self._attr_native_value = None
+
+        battery_entity_id = (
+            self.coordinator.wrapped_battery.entity_id if self.coordinator.wrapped_battery
+            else self.coordinator.source_entity_id
+        )
+        if battery_entity_id:
+            @callback
+            def _estimated_battery_state_listener(event):  # noqa: ARG001
+                new_state = self.hass.states.get(battery_entity_id)
+                if (
+                    new_state and validate_is_float(new_state.state)
+                    and not self.coordinator.wrapped_battery
+                    and not self.coordinator.battery_percentage_template
+                ):
+                    self.coordinator.current_battery_level = new_state.state
+                self._attr_native_value = self.coordinator.battery_estimated_replacement_date
+                self.async_write_ha_state()
+
+            self.async_on_remove(
+                async_track_state_change_event(
+                    self.hass,
+                    [battery_entity_id],
+                    _estimated_battery_state_listener,
+                )
+            )
+            self.async_on_remove(
+                async_track_state_report_event(
+                    self.hass,
+                    [battery_entity_id],
+                    _estimated_battery_state_listener,
+                )
+            )
 
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
+        self._attr_native_value = self.coordinator.battery_estimated_replacement_date
         self.async_write_ha_state()
 
     @property
     def native_value(self) -> datetime | None:
         """Return the estimated battery replacement date."""
-        return self.coordinator.battery_estimated_replacement_date
+        return self._attr_native_value

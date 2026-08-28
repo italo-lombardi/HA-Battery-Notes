@@ -61,6 +61,7 @@ class Library:  # pylint: disable=too-few-public-methods
     """Hold all known battery types."""
 
     _manufacturer_devices: dict[str, list[LibraryDevice]] = {}
+    _ignored_domains: list[str] = []
 
     def __init__(self, hass: HomeAssistant) -> None:
         """Init."""
@@ -81,7 +82,7 @@ class Library:  # pylint: disable=too-few-public-methods
             finally:
                 self._is_loading = False
 
-    async def _do_load_libraries(self):
+    async def _do_load_libraries(self):  # noqa: PLR0912, PLR0915
         """Load libraries internally (must be called with lock held)."""
 
         def _load_library_json(library_file: str) -> dict[str, Any]:
@@ -97,7 +98,6 @@ class Library:  # pylint: disable=too-few-public-methods
             json_user_path = self.hass.config.path(
                 STORAGE_DIR, "battery_notes", domain_config.user_library
             )
-            _LOGGER.debug("Using user library file at %s", json_user_path)
 
             try:
                 user_json_data = await self.hass.async_add_executor_job(
@@ -110,7 +110,22 @@ class Library:  # pylint: disable=too-few-public-methods
                     if manufacturer not in new_manufacturer_devices:
                         new_manufacturer_devices[manufacturer] = []
                     new_manufacturer_devices[manufacturer].append(library_device)
-                _LOGGER.debug("Loaded %s user devices", len(user_json_data["devices"]))
+                _LOGGER.info(
+                    "Loaded %s user devices from %s",
+                    len(user_json_data["devices"]),
+                    json_user_path,
+                )
+
+                if "ignored_domains" in user_json_data:
+                    ignored_domains = user_json_data["ignored_domains"]
+                    if isinstance(ignored_domains, list):
+                        for domain in ignored_domains:
+                            self._ignored_domains.append(str(domain).casefold())
+                        _LOGGER.info(
+                            "Loaded %s ignored domains from %s",
+                            len(ignored_domains),
+                            json_user_path,
+                        )
 
             except FileNotFoundError:
                 # Try to move the user library to new location
@@ -145,8 +160,6 @@ class Library:  # pylint: disable=too-few-public-methods
             STORAGE_DIR, "battery_notes", "library.json"
         )
 
-        _LOGGER.debug("Using library file at %s", json_default_path)
-
         try:
             default_json_data = await self.hass.async_add_executor_job(
                 _load_library_json, json_default_path
@@ -157,11 +170,24 @@ class Library:  # pylint: disable=too-few-public-methods
                 if manufacturer not in new_manufacturer_devices:
                     new_manufacturer_devices[manufacturer] = []
                 new_manufacturer_devices[manufacturer].append(library_device)
-            _LOGGER.debug(
-                "Loaded %s default devices", len(default_json_data[LIBRARY_DEVICES])
+            _LOGGER.info(
+                "Loaded %s default devices from %s",
+                len(default_json_data[LIBRARY_DEVICES]),
+                json_default_path,
             )
 
             self._manufacturer_devices = new_manufacturer_devices
+
+            if "ignored_domains" in default_json_data:
+                ignored_domains = default_json_data["ignored_domains"]
+                if isinstance(ignored_domains, list):
+                    for domain in ignored_domains:
+                        self._ignored_domains.append(str(domain).casefold())
+                    _LOGGER.info(
+                        "Loaded %s ignored domains from %s",
+                        len(ignored_domains),
+                        json_default_path,
+                    )
 
         except FileNotFoundError:
             _LOGGER.error(
@@ -175,7 +201,11 @@ class Library:  # pylint: disable=too-few-public-methods
                 err,
             )
 
-    async def get_device_battery_details(
+    def is_domain_ignored(self, domain: str) -> bool:
+        """Check if an integration domain is ignored."""
+        return domain.casefold() in self._ignored_domains
+
+    async def get_device_battery_details(  # noqa: PLR0911, PLR0912
         self,
         device_to_find: ModelInfo,
     ) -> DeviceBatteryDetails | None:
@@ -201,6 +231,23 @@ class Library:  # pylint: disable=too-few-public-methods
             if self.device_basic_match(x, device_to_find)
         ]
 
+        if not matching_devices:
+            return None
+
+        # If search doesn't specify model_id/hw_version, filter to entries without them
+        if device_to_find.model_id is None and device_to_find.hw_version is None:
+            generic_matches = [
+                x
+                for x in matching_devices
+                if x.model_id is None and x.hw_version is None
+            ]
+            if generic_matches:
+                matching_devices = generic_matches
+            else:
+                # No generic version found when searching without specifics
+                return None
+
+        # Narrow down from multiple matches
         if matching_devices and len(matching_devices) > 1:
             partial_matching_devices = [
                 x
@@ -208,14 +255,18 @@ class Library:  # pylint: disable=too-few-public-methods
                 if self.device_partial_match(x, device_to_find)
             ]
 
-        if partial_matching_devices and len(partial_matching_devices) > 0:
-            matching_devices = partial_matching_devices
+            if partial_matching_devices:
+                matching_devices = partial_matching_devices
 
-        if matching_devices:
-            fully_matching_devices = [
-                x for x in matching_devices if self.device_full_match(x, device_to_find)
-            ]
-            matching_devices = fully_matching_devices
+                # Only try full match if we still have multiple matches
+                if len(matching_devices) > 1:
+                    fully_matching_devices = [
+                        x
+                        for x in matching_devices
+                        if self.device_full_match(x, device_to_find)
+                    ]
+                    if fully_matching_devices:
+                        matching_devices = fully_matching_devices
 
         if not matching_devices:
             return None

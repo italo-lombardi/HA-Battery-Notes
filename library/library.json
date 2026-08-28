@@ -1,6 +1,10 @@
 {
     "$schema": "./schema.json",
     "version": 1,
+    "ignored_domains": [
+        "music_assistant",
+        "unifi"
+    ],
     "devices": [
         {
             "manufacturer": "0x117c",
@@ -2321,6 +2325,11 @@
             "battery_type": "Rechargeable"
         },
         {
+            "manufacturer": "Blueforcer",
+            "model": "AWTRIX NG",
+            "battery_type": "Rechargeable"
+        },
+        {
             "manufacturer": "BlueMaestro",
             "model": "Tempo Disc THD",
             "battery_type": "CR2032"
@@ -2420,6 +2429,13 @@
             "manufacturer": "Bosch",
             "model": "Room thermostat II",
             "model_id": "RBSH-RTH0-BAT-ZB-EU",
+            "battery_type": "AAA",
+            "battery_quantity": 4
+        },
+        {
+            "manufacturer": "Bosch",
+            "model": "Smart Home Room Thermostat II",
+            "model_id": "RTH2_BAT",
             "battery_type": "AAA",
             "battery_quantity": 4
         },
@@ -3199,6 +3215,13 @@
         },
         {
             "manufacturer": "eQ-3",
+            "model": "ELV-SH-WSM",
+            "model_id": "ELV Smart Home Bew\u00e4sserungsaktor",
+            "battery_type": "AA",
+            "battery_quantity": 2
+        },
+        {
+            "manufacturer": "eQ-3",
             "model": "eTRV-F",
             "model_id": "HmIP-eTRV-F",
             "battery_type": "AA",
@@ -3297,6 +3320,12 @@
         },
         {
             "manufacturer": "eQ-3",
+            "model": "HM-RC-4-3",
+            "model_id": "Funk-Fernbedienung 4 Tasten",
+            "battery_type": "AAA"
+        },
+        {
+            "manufacturer": "eQ-3",
             "model": "HM-RC-8",
             "battery_type": "AAA",
             "battery_quantity": 2
@@ -3372,6 +3401,12 @@
         {
             "manufacturer": "eQ-3",
             "model": "HM-Sec-SD-2",
+            "battery_type": "Irreplaceable"
+        },
+        {
+            "manufacturer": "eQ-3",
+            "model": "HM-Sec-SD-2",
+            "model_id": "Funk-Rauchmelder",
             "battery_type": "Irreplaceable"
         },
         {
@@ -3456,6 +3491,13 @@
             "model": "HM-WDS10-TH-O",
             "battery_type": "AA",
             "battery_quantity": 2
+        },
+        {
+            "manufacturer": "eQ-3",
+            "model": "HM-WDS100-C6-O",
+            "model_id": "Funk-Kombisensor (OC3)",
+            "battery_type": "AA",
+            "battery_quantity": 3
         },
         {
             "manufacturer": "eQ-3",
@@ -3635,6 +3677,13 @@
             "battery_quantity": 2
         },
         {
+            "manufacturer": "eQ-3",
+            "model": "HmIP-eTRV-F",
+            "model_id": "Homematic IP Heizk\u00f6rperthermostat mit Durchflussmessung",
+            "battery_type": "AA",
+            "battery_quantity": 2
+        },
+        {
             "manufacturer": "eq-3",
             "model": "HmIP-FCI1",
             "battery_type": "CR2032"
@@ -3756,6 +3805,12 @@
         {
             "manufacturer": "eQ-3",
             "model": "HmIP-SRH",
+            "battery_type": "AAA"
+        },
+        {
+            "manufacturer": "eQ-3",
+            "model": "HmIP-SRH",
+            "model_id": "Homematic IP Fenster-/ Drehgriffkontakt",
             "battery_type": "AAA"
         },
         {
@@ -3883,6 +3938,11 @@
             "model_id": "Homematic IP Rauchmelder",
             "battery_type": "FDK CR17450E-N (3V)",
             "battery_quantity": 2
+        },
+        {
+            "manufacturer": "eQ-3",
+            "model": "HmIP-SWSD-2",
+            "battery_type": "Irreplaceable"
         },
         {
             "manufacturer": "eQ-3",
@@ -4049,6 +4109,11 @@
         {
             "manufacturer": "Eufy Security",
             "model": "T8160",
+            "battery_type": "Rechargeable"
+        },
+        {
+            "manufacturer": "Eufy Security",
+            "model": "T8161",
             "battery_type": "Rechargeable"
         },
         {
@@ -4427,6 +4492,11 @@
             "model": "1044807",
             "battery_type": "AA",
             "battery_quantity": 2
+        },
+        {
+            "manufacturer": "First Alert",
+            "model": "SMCO410",
+            "battery_type": "Irreplaceable"
         },
         {
             "manufacturer": "First Alert",
@@ -6076,7 +6146,17 @@
         },
         {
             "manufacturer": "iRobot",
+            "model": "i755840",
+            "battery_type": "Rechargeable"
+        },
+        {
+            "manufacturer": "iRobot",
             "model": "j755020",
+            "battery_type": "Rechargeable"
+        },
+        {
+            "manufacturer": "iRobot",
+            "model": "m610840",
             "battery_type": "Rechargeable"
         },
         {
@@ -6679,9 +6759,14 @@
         },
         {
             "manufacturer": "Meross",
+            "model": "Smart Presence Sensor",
+            "model_id": "16898",
+            "battery_type": "CR123A"
+        },
+        {
+            "manufacturer": "Meross",
             "model": "Smart Presence Sensor (16898)",
             "model_id": "16898",
-            "hw_version": "prerelease",
             "battery_type": "CR123A"
         },
         {
@@ -7930,6 +8015,12 @@
             "model": "Argus Eco Ultra",
             "hw_version": "BIPC_560MIX16M35B238MP",
             "battery_type": "Rechargeable"
+        },
+        {
+            "manufacturer": "Reolink",
+            "model": "Argus MagiCam",
+            "battery_type": "AA",
+            "battery_quantity": 2
         },
         {
             "manufacturer": "Reolink",
@@ -9270,6 +9361,12 @@
         },
         {
             "manufacturer": "SONOFF",
+            "model": "SNZB-02B",
+            "battery_type": "AAA",
+            "battery_quantity": 2
+        },
+        {
+            "manufacturer": "SONOFF",
             "model": "SNZB-02D",
             "battery_type": "CR2450"
         },
@@ -9340,6 +9437,12 @@
             "model_id": "SNZB-02",
             "hw_version": "1",
             "battery_type": "CR2450"
+        },
+        {
+            "manufacturer": "SONOFF",
+            "model": "Temperature and humidity sensor",
+            "model_id": "SNZB-02P",
+            "battery_type": "CR2477"
         },
         {
             "manufacturer": "Sonoff",
@@ -9436,6 +9539,13 @@
             "hw_version": "16",
             "battery_type": "AA",
             "battery_quantity": 4
+        },
+        {
+            "manufacturer": "SONOFF",
+            "model": "Zigbee thermostatic radiator valve",
+            "model_id": "TRV-ZBT",
+            "battery_type": "AA",
+            "battery_quantity": 2
         },
         {
             "manufacturer": "SONOFF",
@@ -9603,6 +9713,12 @@
             "model": "Smart Lock Pro",
             "hw_version": "V2.3",
             "battery_type": "Rechargeable",
+            "battery_quantity": 2
+        },
+        {
+            "manufacturer": "SwitchBot",
+            "model": "Smart Thermostat Radiator",
+            "battery_type": "AA",
             "battery_quantity": 2
         },
         {
@@ -10034,6 +10150,17 @@
             "manufacturer": "Third Reality, Inc",
             "model": "3RSM0147Z",
             "battery_type": "AA"
+        },
+        {
+            "manufacturer": "Third Reality, Inc",
+            "model": "3RSM0347Z",
+            "battery_type": "AA"
+        },
+        {
+            "manufacturer": "Third Reality, Inc",
+            "model": "3RSMR01067Z",
+            "battery_type": "AA",
+            "battery_quantity": 3
         },
         {
             "manufacturer": "Third Reality, Inc",
@@ -11240,6 +11367,12 @@
         },
         {
             "manufacturer": "Tuya",
+            "model": "TH09Z",
+            "battery_type": "AAA",
+            "battery_quantity": 2
+        },
+        {
+            "manufacturer": "Tuya",
             "model": "Thermostat radiator valve",
             "model_id": "TV02-Zigbee",
             "battery_type": "AA",
@@ -11678,6 +11811,11 @@
             "manufacturer": "TUYATEC-riuj5xzs",
             "model": "RH3052",
             "battery_type": "CR2032"
+        },
+        {
+            "manufacturer": "TUYATEC-rwjlk9td",
+            "model": "RH3040",
+            "battery_type": "CR2450"
         },
         {
             "manufacturer": "TUYATEC-vhrcfp2v",

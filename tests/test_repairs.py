@@ -9,6 +9,7 @@ from custom_components.battery_notes.common import composite_device_issue_id
 from custom_components.battery_notes.const import (
     DOMAIN,
     LAST_REPLACED,
+    LAST_REPLACED_LEVEL,
     LAST_REPORTED,
     LAST_REPORTED_LEVEL,
 )
@@ -89,6 +90,7 @@ async def test_composite_entity_note_uses_current_device(
     store = await async_get_registry(hass)
     history = {
         LAST_REPLACED: datetime(2025, 12, 1, tzinfo=UTC),
+        LAST_REPLACED_LEVEL: None,
         LAST_REPORTED: datetime(2026, 1, 1, tzinfo=UTC),
         LAST_REPORTED_LEVEL: 55.0,
     }

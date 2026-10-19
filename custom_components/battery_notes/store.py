@@ -116,9 +116,9 @@ class MigratableStore(Store):
                         entity[LAST_REPORTED] = _fix_datetime_string(last_reported)
 
             if old_minor_version < 3:
-                for device in data["devices"]:
+                for device in data.get("devices", []):
                     device.setdefault(LAST_REPLACED_LEVEL, None)
-                for entity in data["entities"]:
+                for entity in data.get("entities", []):
                     entity.setdefault(LAST_REPLACED_LEVEL, None)
 
         return data

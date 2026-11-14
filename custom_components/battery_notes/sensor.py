@@ -40,7 +40,7 @@ from homeassistant.helpers.event import (
 from homeassistant.helpers.typing import StateType
 from homeassistant.util import dt as dt_util
 
-from .common import validate_is_float
+from .common import async_hide_source_battery, validate_is_float
 from .const import (
     ATTR_BATTERY_DRAIN_RATE,
     ATTR_BATTERY_ESTIMATED_REPLACEMENT_DATE,
@@ -77,8 +77,6 @@ class BatteryNotesSensorEntityDescription(
 ):
     """Describes Battery Notes sensor entity."""
 
-    unique_id_suffix: str
-
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -108,50 +106,50 @@ async def async_setup_entry(
 
         type_sensor_entity_description = BatteryNotesSensorEntityDescription(
             unique_id_suffix="_battery_type",
+            object_id_base="battery_type",
             key="battery_type",
             translation_key="battery_type",
             entity_category=EntityCategory.DIAGNOSTIC,
-            entity_type="sensor",
         )
 
         last_replaced_sensor_entity_description = BatteryNotesSensorEntityDescription(
             unique_id_suffix="_battery_last_replaced",
+            object_id_base="battery_last_replaced",
             key="battery_last_replaced",
             translation_key="battery_last_replaced",
             entity_category=EntityCategory.DIAGNOSTIC,
             device_class=SensorDeviceClass.TIMESTAMP,
             entity_registry_enabled_default=domain_config.enable_replaced,
-            entity_type="sensor",
         )
 
         battery_plus_sensor_entity_description = BatteryNotesSensorEntityDescription(
             unique_id_suffix="_battery_plus",
+            object_id_base="battery_plus",
             key="battery_plus",
             translation_key="battery_plus",
             device_class=SensorDeviceClass.BATTERY,
             suggested_display_precision=0 if domain_config.round_battery else 1,
-            entity_type="sensor",
-            require_device=True,
+            allow_source_device_fallback=False,
         )
 
         drain_rate_sensor_entity_description = BatteryNotesSensorEntityDescription(
             unique_id_suffix="_battery_drain_rate",
+            object_id_base="battery_drain_rate",
             key="battery_drain_rate",
             translation_key="battery_drain_rate",
             entity_category=EntityCategory.DIAGNOSTIC,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=f"{PERCENTAGE}/day",
             suggested_display_precision=1,
-            entity_type="sensor",
         )
 
         estimated_replacement_sensor_entity_description = BatteryNotesSensorEntityDescription(
             unique_id_suffix="_battery_estimated_replacement",
+            object_id_base="battery_estimated_replacement",
             key="battery_estimated_replacement",
             translation_key="battery_estimated_replacement",
             entity_category=EntityCategory.DIAGNOSTIC,
             device_class=SensorDeviceClass.TIMESTAMP,
-            entity_type="sensor",
         )
 
         entities = [
@@ -760,24 +758,12 @@ class BatteryNotesBatteryPlusSensor(BatteryNotesBatteryPlusBaseSensor):
         if not self.coordinator.wrapped_battery:
             return
 
-        domain_config = self.domain_config
-
-        if domain_config.hide_battery:
-            if (
-                self.coordinator.wrapped_battery
-                and not self.coordinator.wrapped_battery.hidden
-            ):
-                registry.async_update_entity(
-                    self.coordinator.wrapped_battery.entity_id,
-                    hidden_by=er.RegistryEntryHider.INTEGRATION,
-                )
-        elif (
-            self.coordinator.wrapped_battery
-            and self.coordinator.wrapped_battery.hidden_by
-            == er.RegistryEntryHider.INTEGRATION
-        ):
-            registry.async_update_entity(
-                self.coordinator.wrapped_battery.entity_id, hidden_by=None
+        if self.domain_config.hide_battery:
+            async_hide_source_battery(
+                self.hass,
+                self.coordinator.config_entry.runtime_data.store,
+                self.coordinator.subentry.subentry_id,
+                self.coordinator.wrapped_battery.entity_id,
             )
 
         await self.coordinator.async_refresh()
@@ -922,7 +908,7 @@ class BatteryNotesDrainRateSensor(BatteryNotesEntity, RestoreSensor):
         state = await self.async_get_last_sensor_data()
         if state and self.coordinator.battery_drain_rate is None:
             try:
-                self._attr_native_value = float(state.native_value) if state.native_value is not None else None
+                self._attr_native_value = float(str(state.native_value)) if state.native_value is not None else None
             except (ValueError, TypeError):
                 self._attr_native_value = None
 

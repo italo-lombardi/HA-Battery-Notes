@@ -1,7 +1,7 @@
 # serializer version: 1
 # name: test_setup_subentry[binary-device]
   dict({
-    'binary_sensor.door_battery_note_battery_plus_low': dict({
+    'binary_sensor.door_sensor_battery_plus_low': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -14,7 +14,7 @@
         'disabled_by': None,
         'domain': 'binary_sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'binary_sensor.door_battery_note_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_plus_low',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -22,7 +22,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_plus_low',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'binary_sensor.door_battery',
@@ -33,7 +33,7 @@
         'original_name': 'Battery low',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_plus_low',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_low',
         'unique_id': 'bn_door_battery_battery_low',
@@ -48,21 +48,21 @@
           'battery_quantity': 2,
           'battery_type': 'AA',
           'battery_type_and_quantity': '2× AA',
-          'device_class': 'battery',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
           'device_name': 'Door battery note',
-          'friendly_name': 'Door sensor Battery low',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery low',
           'note': 'Under the cover',
           'source_entity_id': '',
         }),
         'context': <ANY>,
-        'entity_id': 'binary_sensor.door_battery_note_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_plus_low',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'off',
       }),
     }),
-    'button.door_battery_note_battery_replaced': dict({
+    'button.door_sensor_battery_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -75,7 +75,7 @@
         'disabled_by': None,
         'domain': 'button',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'button.door_battery_note_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -83,7 +83,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_replaced',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_replaced_button',
@@ -94,7 +94,7 @@
         'original_name': 'Battery replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_replaced',
         'unique_id': 'bn_door_battery_battery_replaced_button',
@@ -102,17 +102,17 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'friendly_name': 'Door sensor Battery replaced',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'button.door_battery_note_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_note_battery_last_replaced': dict({
+    'sensor.door_sensor_battery_last_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -125,7 +125,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_note_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_last_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -133,7 +133,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_last_replaced',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -141,7 +141,7 @@
         'original_name': 'Battery last replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_last_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_last_replaced',
         'unique_id': 'bn_door_battery_battery_last_replaced',
@@ -149,18 +149,18 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door sensor Battery last replaced',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery last replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_note_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_last_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': '2026-01-01T12:00:00+00:00',
       }),
     }),
-    'sensor.door_battery_note_battery_type': dict({
+    'sensor.door_sensor_battery_type': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -173,7 +173,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_note_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_type',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -181,7 +181,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_type',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_type',
@@ -192,7 +192,7 @@
         'original_name': 'Battery type',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_type',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_type',
         'unique_id': 'bn_door_battery_battery_type',
@@ -202,11 +202,11 @@
         'attributes': ReadOnlyDict({
           'battery_quantity': 2,
           'battery_type': 'AA',
-          'friendly_name': 'Door sensor Battery type',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery type',
           'note': 'Under the cover',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_note_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_type',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
@@ -217,7 +217,7 @@
 # ---
 # name: test_setup_subentry[binary-entity]
   dict({
-    'binary_sensor.door_battery_battery_plus_low': dict({
+    'binary_sensor.door_sensor_battery_battery_plus_low': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -230,7 +230,7 @@
         'disabled_by': None,
         'domain': 'binary_sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'binary_sensor.door_battery_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_battery_plus_low',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -238,7 +238,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_plus_low',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'binary_sensor.door_battery',
@@ -249,7 +249,7 @@
         'original_name': 'Battery Battery low',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_plus_low',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_low',
         'unique_id': 'bn_door_battery_battery_low',
@@ -264,21 +264,21 @@
           'battery_quantity': 2,
           'battery_type': 'AA',
           'battery_type_and_quantity': '2× AA',
-          'device_class': 'battery',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
           'device_name': 'Door battery note',
-          'friendly_name': 'Door sensor Battery Battery low',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery low',
           'note': 'Under the cover',
           'source_entity_id': 'binary_sensor.door_battery',
         }),
         'context': <ANY>,
-        'entity_id': 'binary_sensor.door_battery_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_battery_plus_low',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'off',
       }),
     }),
-    'button.door_battery_battery_replaced': dict({
+    'button.door_sensor_battery_battery_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -291,7 +291,7 @@
         'disabled_by': None,
         'domain': 'button',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'button.door_battery_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_battery_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -299,7 +299,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_replaced',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_replaced_button',
@@ -310,7 +310,7 @@
         'original_name': 'Battery Battery replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_replaced',
         'unique_id': 'bn_door_battery_battery_replaced_button',
@@ -318,24 +318,24 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'friendly_name': 'Door sensor Battery Battery replaced',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'button.door_battery_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_battery_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_battery_drain_rate': dict({
+    'sensor.door_sensor_battery_battery_drain_rate': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -343,7 +343,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_drain_rate',
+        'entity_id': 'sensor.door_sensor_battery_battery_drain_rate',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -351,7 +351,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_drain_rate',
         'options': dict({
           'sensor': dict({
             'suggested_display_precision': 1,
@@ -362,7 +362,7 @@
         'original_name': 'Battery Battery drain rate',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_drain_rate',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_drain_rate',
         'unique_id': 'bn_door_battery_battery_drain_rate',
@@ -371,19 +371,19 @@
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
           'battery_last_replaced_level': 100.0,
-          'friendly_name': 'Door sensor Battery Battery drain rate',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-          'unit_of_measurement': '%/day',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery drain rate',
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%/day',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_drain_rate',
+        'entity_id': 'sensor.door_sensor_battery_battery_drain_rate',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_battery_estimated_replacement': dict({
+    'sensor.door_sensor_battery_battery_estimated_replacement': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -396,7 +396,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_estimated_replacement',
+        'entity_id': 'sensor.door_sensor_battery_battery_estimated_replacement',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -404,7 +404,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_estimated_replacement',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -412,7 +412,7 @@
         'original_name': 'Battery Battery estimated replacement',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_estimated_replacement',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_estimated_replacement',
         'unique_id': 'bn_door_battery_battery_estimated_replacement',
@@ -420,18 +420,18 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door sensor Battery Battery estimated replacement',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery estimated replacement',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_estimated_replacement',
+        'entity_id': 'sensor.door_sensor_battery_battery_estimated_replacement',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_battery_last_replaced': dict({
+    'sensor.door_sensor_battery_battery_last_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -444,7 +444,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_battery_last_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -452,7 +452,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_last_replaced',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -460,7 +460,7 @@
         'original_name': 'Battery Battery last replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_last_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_last_replaced',
         'unique_id': 'bn_door_battery_battery_last_replaced',
@@ -468,18 +468,18 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door sensor Battery Battery last replaced',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery last replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_battery_last_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': '2026-01-01T12:00:00+00:00',
       }),
     }),
-    'sensor.door_battery_battery_type': dict({
+    'sensor.door_sensor_battery_battery_type': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -492,7 +492,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_battery_type',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -500,7 +500,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_type',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_type',
@@ -511,7 +511,7 @@
         'original_name': 'Battery Battery type',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_type',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_type',
         'unique_id': 'bn_door_battery_battery_type',
@@ -521,11 +521,11 @@
         'attributes': ReadOnlyDict({
           'battery_quantity': 2,
           'battery_type': 'AA',
-          'friendly_name': 'Door sensor Battery Battery type',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery type',
           'note': 'Under the cover',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_battery_type',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
@@ -557,7 +557,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_plus_low',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'binary_sensor.door_battery',
@@ -568,7 +568,7 @@
         'original_name': 'Door battery note Battery low',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_plus_low',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_low',
         'unique_id': 'bn_door_battery_battery_low',
@@ -583,9 +583,9 @@
           'battery_quantity': 2,
           'battery_type': 'AA',
           'battery_type_and_quantity': '2× AA',
-          'device_class': 'battery',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
           'device_name': 'Door battery note',
-          'friendly_name': 'Door battery note Battery low',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery low',
           'note': 'Under the cover',
           'source_entity_id': 'binary_sensor.door_battery',
         }),
@@ -618,7 +618,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_replaced',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_replaced_button',
@@ -629,7 +629,7 @@
         'original_name': 'Door battery note Battery replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_replaced',
         'unique_id': 'bn_door_battery_battery_replaced_button',
@@ -637,7 +637,7 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'friendly_name': 'Door battery note Battery replaced',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery replaced',
         }),
         'context': <ANY>,
         'entity_id': 'button.door_battery_note_battery_replaced',
@@ -654,7 +654,7 @@
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -670,7 +670,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_drain_rate',
         'options': dict({
           'sensor': dict({
             'suggested_display_precision': 1,
@@ -681,7 +681,7 @@
         'original_name': 'Door battery note Battery drain rate',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_drain_rate',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_drain_rate',
         'unique_id': 'bn_door_battery_battery_drain_rate',
@@ -690,9 +690,9 @@
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
           'battery_last_replaced_level': 100.0,
-          'friendly_name': 'Door battery note Battery drain rate',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-          'unit_of_measurement': '%/day',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery drain rate',
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%/day',
         }),
         'context': <ANY>,
         'entity_id': 'sensor.door_battery_note_battery_drain_rate',
@@ -723,7 +723,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_estimated_replacement',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -731,7 +731,7 @@
         'original_name': 'Door battery note Battery estimated replacement',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_estimated_replacement',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_estimated_replacement',
         'unique_id': 'bn_door_battery_battery_estimated_replacement',
@@ -739,8 +739,8 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door battery note Battery estimated replacement',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery estimated replacement',
         }),
         'context': <ANY>,
         'entity_id': 'sensor.door_battery_note_battery_estimated_replacement',
@@ -771,7 +771,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_last_replaced',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -779,7 +779,7 @@
         'original_name': 'Door battery note Battery last replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_last_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_last_replaced',
         'unique_id': 'bn_door_battery_battery_last_replaced',
@@ -787,8 +787,8 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door battery note Battery last replaced',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery last replaced',
         }),
         'context': <ANY>,
         'entity_id': 'sensor.door_battery_note_battery_last_replaced',
@@ -819,7 +819,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_type',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_type',
@@ -830,7 +830,7 @@
         'original_name': 'Door battery note Battery type',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_type',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_type',
         'unique_id': 'bn_door_battery_battery_type',
@@ -840,7 +840,7 @@
         'attributes': ReadOnlyDict({
           'battery_quantity': 2,
           'battery_type': 'AA',
-          'friendly_name': 'Door battery note Battery type',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery type',
           'note': 'Under the cover',
         }),
         'context': <ANY>,
@@ -855,7 +855,7 @@
 # ---
 # name: test_setup_subentry[percentage-device]
   dict({
-    'binary_sensor.door_battery_note_battery_plus_low': dict({
+    'binary_sensor.door_sensor_battery_plus_low': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -868,7 +868,7 @@
         'disabled_by': None,
         'domain': 'binary_sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'binary_sensor.door_battery_note_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_plus_low',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -876,7 +876,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_plus_low',
         'options': dict({
         }),
         'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
@@ -884,7 +884,7 @@
         'original_name': 'Battery low',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_plus_low',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_low',
         'unique_id': 'bn_door_battery_battery_low',
@@ -899,21 +899,21 @@
           'battery_quantity': 2,
           'battery_type': 'AA',
           'battery_type_and_quantity': '2× AA',
-          'device_class': 'battery',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
           'device_name': 'Door battery note',
-          'friendly_name': 'Door sensor Battery low',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery low',
           'note': 'Under the cover',
           'source_entity_id': '',
         }),
         'context': <ANY>,
-        'entity_id': 'binary_sensor.door_battery_note_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_plus_low',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'off',
       }),
     }),
-    'button.door_battery_note_battery_replaced': dict({
+    'button.door_sensor_battery_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -926,7 +926,7 @@
         'disabled_by': None,
         'domain': 'button',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'button.door_battery_note_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -934,7 +934,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_replaced',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_replaced_button',
@@ -945,7 +945,7 @@
         'original_name': 'Battery replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_replaced',
         'unique_id': 'bn_door_battery_battery_replaced_button',
@@ -953,24 +953,24 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'friendly_name': 'Door sensor Battery replaced',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'button.door_battery_note_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_note_battery_drain_rate': dict({
+    'sensor.door_sensor_battery_drain_rate': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -978,7 +978,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_note_battery_drain_rate',
+        'entity_id': 'sensor.door_sensor_battery_drain_rate',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -986,7 +986,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_drain_rate',
         'options': dict({
           'sensor': dict({
             'suggested_display_precision': 1,
@@ -997,7 +997,7 @@
         'original_name': 'Battery drain rate',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_drain_rate',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_drain_rate',
         'unique_id': 'bn_door_battery_battery_drain_rate',
@@ -1006,19 +1006,19 @@
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
           'battery_last_replaced_level': 100.0,
-          'friendly_name': 'Door sensor Battery drain rate',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-          'unit_of_measurement': '%/day',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery drain rate',
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%/day',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_note_battery_drain_rate',
+        'entity_id': 'sensor.door_sensor_battery_drain_rate',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_note_battery_estimated_replacement': dict({
+    'sensor.door_sensor_battery_estimated_replacement': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1031,7 +1031,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_note_battery_estimated_replacement',
+        'entity_id': 'sensor.door_sensor_battery_estimated_replacement',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1039,7 +1039,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_estimated_replacement',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -1047,7 +1047,7 @@
         'original_name': 'Battery estimated replacement',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_estimated_replacement',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_estimated_replacement',
         'unique_id': 'bn_door_battery_battery_estimated_replacement',
@@ -1055,18 +1055,18 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door sensor Battery estimated replacement',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery estimated replacement',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_note_battery_estimated_replacement',
+        'entity_id': 'sensor.door_sensor_battery_estimated_replacement',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_note_battery_last_replaced': dict({
+    'sensor.door_sensor_battery_last_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1079,7 +1079,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_note_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_last_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1087,7 +1087,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_last_replaced',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -1095,7 +1095,7 @@
         'original_name': 'Battery last replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_last_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_last_replaced',
         'unique_id': 'bn_door_battery_battery_last_replaced',
@@ -1103,25 +1103,25 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door sensor Battery last replaced',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery last replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_note_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_last_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': '2026-01-01T12:00:00+00:00',
       }),
     }),
-    'sensor.door_battery_note_battery_plus': dict({
+    'sensor.door_sensor_battery_plus': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -1129,7 +1129,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': None,
-        'entity_id': 'sensor.door_battery_note_battery_plus',
+        'entity_id': 'sensor.door_sensor_battery_plus',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1137,7 +1137,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_plus',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'sensor.door_battery',
@@ -1151,7 +1151,7 @@
         'original_name': 'Battery+',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_plus',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_plus',
         'unique_id': 'bn_door_battery_battery_plus',
@@ -1176,18 +1176,18 @@
           'friendly_name': 'Door sensor Battery+',
           'note': 'Under the cover',
           'source_entity_id': '',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
           'unit_of_measurement': '%',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_note_battery_plus',
+        'entity_id': 'sensor.door_sensor_battery_plus',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': '55.0',
       }),
     }),
-    'sensor.door_battery_note_battery_type': dict({
+    'sensor.door_sensor_battery_type': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1200,7 +1200,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_note_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_type',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1208,7 +1208,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_type',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_type',
@@ -1219,7 +1219,7 @@
         'original_name': 'Battery type',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_type',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_type',
         'unique_id': 'bn_door_battery_battery_type',
@@ -1229,11 +1229,11 @@
         'attributes': ReadOnlyDict({
           'battery_quantity': 2,
           'battery_type': 'AA',
-          'friendly_name': 'Door sensor Battery type',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery type',
           'note': 'Under the cover',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_note_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_type',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
@@ -1244,7 +1244,7 @@
 # ---
 # name: test_setup_subentry[percentage-entity]
   dict({
-    'binary_sensor.door_battery_battery_plus_low': dict({
+    'binary_sensor.door_sensor_battery_battery_plus_low': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1257,7 +1257,7 @@
         'disabled_by': None,
         'domain': 'binary_sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'binary_sensor.door_battery_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_battery_plus_low',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1265,7 +1265,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_plus_low',
         'options': dict({
         }),
         'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
@@ -1273,7 +1273,7 @@
         'original_name': 'Battery Battery low',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_plus_low',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_low',
         'unique_id': 'bn_door_battery_battery_low',
@@ -1288,21 +1288,21 @@
           'battery_quantity': 2,
           'battery_type': 'AA',
           'battery_type_and_quantity': '2× AA',
-          'device_class': 'battery',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
           'device_name': 'Door battery note',
-          'friendly_name': 'Door sensor Battery Battery low',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery low',
           'note': 'Under the cover',
           'source_entity_id': 'sensor.door_battery',
         }),
         'context': <ANY>,
-        'entity_id': 'binary_sensor.door_battery_battery_plus_low',
+        'entity_id': 'binary_sensor.door_sensor_battery_battery_plus_low',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'off',
       }),
     }),
-    'button.door_battery_battery_replaced': dict({
+    'button.door_sensor_battery_battery_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1315,7 +1315,7 @@
         'disabled_by': None,
         'domain': 'button',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'button.door_battery_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_battery_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1323,7 +1323,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_replaced',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_replaced_button',
@@ -1334,7 +1334,7 @@
         'original_name': 'Battery Battery replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_replaced',
         'unique_id': 'bn_door_battery_battery_replaced_button',
@@ -1342,24 +1342,24 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'friendly_name': 'Door sensor Battery Battery replaced',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'button.door_battery_battery_replaced',
+        'entity_id': 'button.door_sensor_battery_battery_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_battery_drain_rate': dict({
+    'sensor.door_sensor_battery_battery_drain_rate': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -1367,7 +1367,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_drain_rate',
+        'entity_id': 'sensor.door_sensor_battery_battery_drain_rate',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1375,7 +1375,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_drain_rate',
         'options': dict({
           'sensor': dict({
             'suggested_display_precision': 1,
@@ -1386,7 +1386,7 @@
         'original_name': 'Battery Battery drain rate',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_drain_rate',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_drain_rate',
         'unique_id': 'bn_door_battery_battery_drain_rate',
@@ -1395,19 +1395,19 @@
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
           'battery_last_replaced_level': 100.0,
-          'friendly_name': 'Door sensor Battery Battery drain rate',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-          'unit_of_measurement': '%/day',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery drain rate',
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%/day',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_drain_rate',
+        'entity_id': 'sensor.door_sensor_battery_battery_drain_rate',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_battery_estimated_replacement': dict({
+    'sensor.door_sensor_battery_battery_estimated_replacement': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1420,7 +1420,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_estimated_replacement',
+        'entity_id': 'sensor.door_sensor_battery_battery_estimated_replacement',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1428,7 +1428,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_estimated_replacement',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -1436,7 +1436,7 @@
         'original_name': 'Battery Battery estimated replacement',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_estimated_replacement',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_estimated_replacement',
         'unique_id': 'bn_door_battery_battery_estimated_replacement',
@@ -1444,18 +1444,18 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door sensor Battery Battery estimated replacement',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery estimated replacement',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_estimated_replacement',
+        'entity_id': 'sensor.door_sensor_battery_battery_estimated_replacement',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': 'unknown',
       }),
     }),
-    'sensor.door_battery_battery_last_replaced': dict({
+    'sensor.door_sensor_battery_battery_last_replaced': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1468,7 +1468,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_battery_last_replaced',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1476,7 +1476,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_last_replaced',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -1484,7 +1484,7 @@
         'original_name': 'Battery Battery last replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_last_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_last_replaced',
         'unique_id': 'bn_door_battery_battery_last_replaced',
@@ -1492,25 +1492,25 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door sensor Battery Battery last replaced',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery last replaced',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_last_replaced',
+        'entity_id': 'sensor.door_sensor_battery_battery_last_replaced',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': '2026-01-01T12:00:00+00:00',
       }),
     }),
-    'sensor.door_battery_battery_plus': dict({
+    'sensor.door_sensor_battery_battery_plus': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -1518,7 +1518,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': None,
-        'entity_id': 'sensor.door_battery_battery_plus',
+        'entity_id': 'sensor.door_sensor_battery_battery_plus',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1526,7 +1526,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_plus',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'sensor.door_battery',
@@ -1540,7 +1540,7 @@
         'original_name': 'Battery Battery+',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_plus',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_plus',
         'unique_id': 'bn_door_battery_battery_plus',
@@ -1565,18 +1565,18 @@
           'friendly_name': 'Door sensor Battery Battery+',
           'note': 'Under the cover',
           'source_entity_id': 'sensor.door_battery',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
           'unit_of_measurement': '%',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_plus',
+        'entity_id': 'sensor.door_sensor_battery_battery_plus',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
         'state': '55.0',
       }),
     }),
-    'sensor.door_battery_battery_type': dict({
+    'sensor.door_sensor_battery_battery_type': dict({
       'registry_entry': EntityRegistryEntrySnapshot({
         'aliases': list([
           None,
@@ -1589,7 +1589,7 @@
         'disabled_by': None,
         'domain': 'sensor',
         'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-        'entity_id': 'sensor.door_battery_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_battery_type',
         'has_entity_name': True,
         'hidden_by': None,
         'icon': None,
@@ -1597,7 +1597,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'battery_battery_type',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_type',
@@ -1608,7 +1608,7 @@
         'original_name': 'Battery Battery type',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_battery_type',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_type',
         'unique_id': 'bn_door_battery_battery_type',
@@ -1618,11 +1618,11 @@
         'attributes': ReadOnlyDict({
           'battery_quantity': 2,
           'battery_type': 'AA',
-          'friendly_name': 'Door sensor Battery Battery type',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door sensor Battery Battery type',
           'note': 'Under the cover',
         }),
         'context': <ANY>,
-        'entity_id': 'sensor.door_battery_battery_type',
+        'entity_id': 'sensor.door_sensor_battery_battery_type',
         'last_changed': <ANY>,
         'last_reported': <ANY>,
         'last_updated': <ANY>,
@@ -1654,7 +1654,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_plus_low',
         'options': dict({
         }),
         'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
@@ -1662,7 +1662,7 @@
         'original_name': 'Door battery note Battery low',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_plus_low',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_low',
         'unique_id': 'bn_door_battery_battery_low',
@@ -1677,9 +1677,9 @@
           'battery_quantity': 2,
           'battery_type': 'AA',
           'battery_type_and_quantity': '2× AA',
-          'device_class': 'battery',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
           'device_name': 'Door battery note',
-          'friendly_name': 'Door battery note Battery low',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery low',
           'note': 'Under the cover',
           'source_entity_id': 'sensor.door_battery',
         }),
@@ -1712,7 +1712,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_replaced',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_replaced_button',
@@ -1723,7 +1723,7 @@
         'original_name': 'Door battery note Battery replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_replaced',
         'unique_id': 'bn_door_battery_battery_replaced_button',
@@ -1731,7 +1731,7 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'friendly_name': 'Door battery note Battery replaced',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery replaced',
         }),
         'context': <ANY>,
         'entity_id': 'button.door_battery_note_battery_replaced',
@@ -1748,7 +1748,7 @@
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -1764,7 +1764,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_drain_rate',
         'options': dict({
           'sensor': dict({
             'suggested_display_precision': 1,
@@ -1775,7 +1775,7 @@
         'original_name': 'Door battery note Battery drain rate',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_drain_rate',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_drain_rate',
         'unique_id': 'bn_door_battery_battery_drain_rate',
@@ -1784,9 +1784,9 @@
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
           'battery_last_replaced_level': 100.0,
-          'friendly_name': 'Door battery note Battery drain rate',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-          'unit_of_measurement': '%/day',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery drain rate',
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%/day',
         }),
         'context': <ANY>,
         'entity_id': 'sensor.door_battery_note_battery_drain_rate',
@@ -1817,7 +1817,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_estimated_replacement',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -1825,7 +1825,7 @@
         'original_name': 'Door battery note Battery estimated replacement',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_estimated_replacement',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_estimated_replacement',
         'unique_id': 'bn_door_battery_battery_estimated_replacement',
@@ -1833,8 +1833,8 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door battery note Battery estimated replacement',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery estimated replacement',
         }),
         'context': <ANY>,
         'entity_id': 'sensor.door_battery_note_battery_estimated_replacement',
@@ -1865,7 +1865,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_last_replaced',
         'options': dict({
         }),
         'original_device_class': <SensorDeviceClass.TIMESTAMP: 'timestamp'>,
@@ -1873,7 +1873,7 @@
         'original_name': 'Door battery note Battery last replaced',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_last_replaced',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_last_replaced',
         'unique_id': 'bn_door_battery_battery_last_replaced',
@@ -1881,8 +1881,8 @@
       }),
       'state': StateSnapshot({
         'attributes': ReadOnlyDict({
-          'device_class': 'timestamp',
-          'friendly_name': 'Door battery note Battery last replaced',
+          <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'timestamp',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery last replaced',
         }),
         'context': <ANY>,
         'entity_id': 'sensor.door_battery_note_battery_last_replaced',
@@ -1899,7 +1899,7 @@
         ]),
         'area_id': None,
         'capabilities': dict({
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
         }),
         'config_entry_id': <ANY>,
         'config_subentry_id': <ANY>,
@@ -1915,7 +1915,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_plus',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'sensor.door_battery',
@@ -1929,7 +1929,7 @@
         'original_name': 'Door battery note Battery+',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_plus',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_plus',
         'unique_id': 'bn_door_battery_battery_plus',
@@ -1954,7 +1954,7 @@
           'friendly_name': 'Door battery note Battery+',
           'note': 'Under the cover',
           'source_entity_id': 'sensor.door_battery',
-          'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+          <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
           'unit_of_measurement': '%',
         }),
         'context': <ANY>,
@@ -1986,7 +1986,7 @@
         'labels': set({
         }),
         'name': None,
-        'object_id_base': None,
+        'object_id_base': 'door_battery_note_battery_type',
         'options': dict({
           'battery_notes': dict({
             'entity_id': 'bn_door_battery_battery_type',
@@ -1997,7 +1997,7 @@
         'original_name': 'Door battery note Battery type',
         'platform': 'battery_notes',
         'previous_unique_id': None,
-        'suggested_object_id': 'door_battery_note_battery_type',
+        'suggested_object_id': None,
         'supported_features': 0,
         'translation_key': 'battery_type',
         'unique_id': 'bn_door_battery_battery_type',
@@ -2007,7 +2007,7 @@
         'attributes': ReadOnlyDict({
           'battery_quantity': 2,
           'battery_type': 'AA',
-          'friendly_name': 'Door battery note Battery type',
+          <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Door battery note Battery type',
           'note': 'Under the cover',
         }),
         'context': <ANY>,

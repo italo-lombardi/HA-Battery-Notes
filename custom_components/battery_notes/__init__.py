@@ -190,7 +190,6 @@ async def async_setup_entry(
     for subentry in config_entry.get_subentries_of_type(SUBENTRY_BATTERY_NOTE):
         device_id = subentry.data.get(CONF_DEVICE_ID, None)
 
-        # HACK: HA 2026.8 splits composite devices into multiple devices, so we need to check if the device_id is a composite device
         # Entity notes link through their entity and use its current device instead
         if (
             device_id is not None
@@ -222,6 +221,21 @@ async def async_setup_entry(
         coordinator = BatteryNotesSubentryCoordinator(hass, config_entry, subentry)
         config_entry.runtime_data.subentry_coordinators[subentry.subentry_id] = (
             coordinator
+        )
+
+        wrapped_entities = (
+            coordinator.wrapped_battery,
+            coordinator.wrapped_battery_low,
+        )
+        async_unhide_source_batteries(
+            hass,
+            domain_config.store,
+            subentry.subentry_id,
+            {
+                entity.id
+                for entity in wrapped_entities
+                if entity is not None and domain_config.hide_battery
+            },
         )
 
         assert subentry.unique_id
@@ -280,7 +294,7 @@ async def async_remove_entry(
 ) -> None:
     """Battery Notes integration removed."""
 
-    hide_battery = config_entry.options.get(CONF_HIDE_BATTERY, False)
+    store = await async_get_registry(hass)
 
     for subentry in config_entry.subentries.values():
         ir.async_delete_issue(
@@ -290,9 +304,8 @@ async def async_remove_entry(
             hass, DOMAIN, composite_device_issue_id(subentry.subentry_id)
         )
 
-        # The source batteries were hidden in favour of battery plus, show them again
-        if hide_battery and subentry.subentry_type == SUBENTRY_BATTERY_NOTE:
-            async_unhide_source_batteries(hass, subentry.data)
+        if subentry.subentry_type == SUBENTRY_BATTERY_NOTE:
+            async_unhide_source_batteries(hass, store, subentry.subentry_id)
 
 
 async def async_migrate_integration(hass: HomeAssistant, config: ConfigType) -> None:  # noqa: PLR0912, PLR0915
@@ -459,30 +472,12 @@ async def async_migrate_integration(hass: HomeAssistant, config: ConfigType) -> 
 
         if source_device_id:
             try:
-                # HACK: New method in 2026.8 - remove legacy when reach minimum version
-                remove_helper_devices = getattr(
-                    helper_integration, "async_remove_helper_devices", None
+                helper_integration.async_remove_helper_devices(
+                    hass,
+                    helper_config_entry_id=entry.entry_id,
+                    source_device_id=source_device_id,
+                    remove_all_devices=True,
                 )
-                remove_legacy_link = getattr(
-                    helper_integration,
-                    "async_remove_helper_config_entry_from_source_device",
-                    None,
-                )
-
-                if callable(remove_helper_devices):
-                    remove_helper_devices(
-                        hass,
-                        helper_config_entry_id=entry.entry_id,
-                        source_device_id=source_device_id,
-                        remove_all_devices=True,
-                    )
-                elif callable(remove_legacy_link):
-                    remove_legacy_link(
-                        hass,
-                        helper_config_entry_id=entry.entry_id,
-                        source_device_id=source_device_id,
-                    )
-
             except ValueError as ex:
                 _LOGGER.debug(
                     "Error removing helper config entry from device during migration: %s",
@@ -520,13 +515,13 @@ async def async_migrate_entry(
         config_entry.minor_version,
     )
 
-    if config_entry.version > 4:
+    if config_entry.version > 5:
         # This means the user has downgraded from a future version
         return False
 
-    if config_entry.version < 4 and config_entry.source == SOURCE_IGNORE:
+    if config_entry.version < 5 and config_entry.source == SOURCE_IGNORE:
         hass.config_entries.async_update_entry(
-            config_entry, version=4, title=config_entry.title
+            config_entry, version=5, title=config_entry.title
         )
         return True
 
@@ -555,6 +550,35 @@ async def async_migrate_entry(
         hass.config_entries.async_update_entry(
             config_entry, version=4, title=config_entry.title
         )
+
+    if config_entry.version == 4:
+        store = await async_get_registry(hass)
+        if config_entry.options.get(CONF_HIDE_BATTERY, False):
+            registry = er.async_get(hass)
+            for entity in er.async_entries_for_config_entry(
+                registry, config_entry.entry_id
+            ):
+                subentry_id = entity.config_subentry_id
+                source_options = entity.options.get(DOMAIN)
+                if (
+                    entity.platform != DOMAIN
+                    or subentry_id is None
+                    or subentry_id not in config_entry.subentries
+                    or config_entry.subentries[subentry_id].subentry_type
+                    != SUBENTRY_BATTERY_NOTE
+                    or not source_options
+                ):
+                    continue
+                if not (source_entity_id := source_options.get("entity_id")):
+                    continue
+                source = registry.async_get(source_entity_id)
+                if source and source.hidden_by == er.RegistryEntryHider.INTEGRATION:
+                    store.async_set_hidden_entities(
+                        subentry_id,
+                        store.hidden_entities.get(subentry_id, set()) | {source.id},
+                    )
+        await store.async_save()
+        hass.config_entries.async_update_entry(config_entry, version=5)
 
     return True
 
@@ -621,19 +645,10 @@ async def _async_remove_subentry(
         elif coordinator.device_id:
             store.async_delete_device(coordinator.device_id)
 
-    # Unhide the source battery and battery low entities hidden by the hide battery option
+    async_unhide_source_batteries(
+        hass, config_entry.runtime_data.store, subentry.subentry_id
+    )
     entity_registry = er.async_get(hass)
-    for wrapped_entity in (
-        coordinator.wrapped_battery,
-        coordinator.wrapped_battery_low,
-    ):
-        if (
-            wrapped_entity
-            and (entity_entry := entity_registry.async_get(wrapped_entity.entity_id))
-            and entity_entry.hidden_by == er.RegistryEntryHider.INTEGRATION
-        ):
-            entity_registry.async_update_entity(entity_entry.entity_id, hidden_by=None)
-            _LOGGER.debug("Unhidden source battery %s", entity_entry.entity_id)
 
     config_entry.runtime_data.subentry_coordinators.pop(subentry.subentry_id)
 

@@ -38,7 +38,7 @@ from homeassistant.helpers.event import (
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.util import dt as dt_util
 
-from .common import validate_is_float
+from .common import async_hide_source_battery, validate_is_float
 from .const import (
     ATTR_BATTERY_INCREASE_THRESHOLD,
     ATTR_BATTERY_LAST_REPLACED,
@@ -71,8 +71,6 @@ class BatteryNotesBinarySensorEntityDescription(
 ):
     """Describes Battery Notes binary sensor entity."""
 
-    unique_id_suffix: str
-
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -97,11 +95,11 @@ async def async_setup_entry(
 
         battery_low_entity_description = BatteryNotesBinarySensorEntityDescription(
             unique_id_suffix="_battery_low",
+            object_id_base="battery_plus_low",
             key="_battery_plus_low",
             translation_key="battery_low",
             entity_category=EntityCategory.DIAGNOSTIC,
             device_class=BinarySensorDeviceClass.BATTERY,
-            entity_type="binary_sensor",
         )
 
         entities: list[
@@ -694,24 +692,12 @@ class BatteryNotesBatteryBinaryLowSensor(BatteryNotesNonTemplateBatteryLowSensor
         if not self.coordinator.wrapped_battery_low:
             return
 
-        domain_config = self.domain_config
-
-        if domain_config.hide_battery:
-            if (
-                self.coordinator.wrapped_battery_low
-                and not self.coordinator.wrapped_battery_low.hidden
-            ):
-                registry.async_update_entity(
-                    self.coordinator.wrapped_battery_low.entity_id,
-                    hidden_by=er.RegistryEntryHider.INTEGRATION,
-                )
-        elif (
-            self.coordinator.wrapped_battery_low
-            and self.coordinator.wrapped_battery_low.hidden_by
-            == er.RegistryEntryHider.INTEGRATION
-        ):
-            registry.async_update_entity(
-                self.coordinator.wrapped_battery_low.entity_id, hidden_by=None
+        if self.domain_config.hide_battery:
+            async_hide_source_battery(
+                self.hass,
+                self.coordinator.config_entry.runtime_data.store,
+                self.coordinator.subentry.subentry_id,
+                self.coordinator.wrapped_battery_low.entity_id,
             )
 
         await self.coordinator.async_refresh()

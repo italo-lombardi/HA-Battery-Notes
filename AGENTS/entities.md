@@ -23,6 +23,14 @@ Read when adding entities or changing source selection, device association, uniq
 - Reuse the base naming, translation placeholders, and device association logic.
   It attaches entities to existing source devices and supports standalone
   entities. Its `available` property combines coordinator and entity availability.
+- Let HA generate entity IDs from the user's format; do not assign `entity_id`.
+  Set the required description field `object_id_base` to the English Battery Notes
+  component, such as `battery_plus` or `battery_plus_low`. The base
+  `suggested_object_id` uses this field independently of `key`, `translation_key`,
+  and `unique_id_suffix`. Display names remain translated.
+  Attached entity notes use the source's own name, without its legacy device
+  prefix; standalone notes use the note title. Keep existing registry IDs intact
+  until the user explicitly regenerates them.
 - Automatic source wrapping selects battery-class percentage sensors with `%`
   units, or battery-class binary sensors. Device notes prefer percentage sources. Battery
   voltage sensors must not be mistaken for percentage sources. Units can fall
@@ -36,6 +44,11 @@ Read when adding entities or changing source selection, device association, uniq
   with `async_on_unload`. Check cleanup across reloads, source renames, and removal.
 - Respect `RegistryEntryHider.USER`. Cleanup should only undo integration-owned
   hiding. Preserve source-unhiding behavior when notes or the integration are removed.
+  Source hiding is recorded by subentry in `store.hidden_entities`, using stable
+  entity registry IDs. Normally only claim visible sources; the one-time v5
+  config migration also adopts linked `INTEGRATION`-hidden sources when hiding
+  is enabled. Setup restores tracked sources when the
+  hide option is disabled or the source changes, even if wrappers are disabled.
 - `enable_replaced` controls default registry enablement for replacement entities;
   it does not overwrite existing user enable/disable choices.
 
